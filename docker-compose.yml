@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+
+  postfix:
+    container_name: ${POSTFIX_NAME}
+    build:
+      context: ./${POSTFIX_TAG}
+    #https://stackoverflow.com/a/38306666/3929620
+    extra_hosts:
+      - 'localhost.localdomain:127.0.0.1'
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - default
+    environment:
+      maildomain: ${POSTFIX_MAILDOMAIN}
+      smtp_user: ${POSTFIX_SMTP_USER}
