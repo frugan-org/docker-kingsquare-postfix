@@ -6,6 +6,9 @@ services:
     container_name: ${POSTFIX_NAME}
     build:
       context: ./${POSTFIX_TAG}
+    ports:
+      - 25
+      - 587
     #https://stackoverflow.com/a/38306666/3929620
     extra_hosts:
       - 'localhost.localdomain:127.0.0.1'

@@ -8,4 +8,6 @@ RUN set -ex; \
     { \
         #https://askubuntu.com/a/63691/543855
         echo 'always_bcc = backup'; \
-    } >> /etc/postfix/main.cf;
+    } >> /etc/postfix/main.cf; \
+    \
+    newaliases;
