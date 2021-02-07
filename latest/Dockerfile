@@ -3,8 +3,8 @@ FROM kingsquare/postfix:latest
 RUN set -ex; \
     #https://superuser.com/a/353526
     sed -i \
-    -e 's/^\(alias_maps = \)hash/\1regex/' \
-    -e 's/^\(alias_database = \)hash/\1regex/' \
+    -e 's/^\(alias_maps = \)hash/\1regexp/' \
+    -e 's/^\(alias_database = \)hash/\1regexp/' \
     /etc/postfix/main.cf; \
     \
     { \
