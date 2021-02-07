@@ -3,20 +3,20 @@ FROM kingsquare/postfix:%%TAG%%
 RUN set -ex; \
     #https://serverfault.com/a/644393/377751
     #https://superuser.com/a/353526
-    sed -i \
-    -e 's/^\(alias_maps = \)hash/\1regexp/' \
-    -e 's/^\(alias_database\)/#\1/' \
-    /etc/postfix/main.cf; \
-    \
     { \
-        echo '/^postmaster@/ root'; \
-        echo '/^devnull(\d*)@/ /dev/null'; \
-    } > /etc/aliases; \
+        echo 'devnull: /dev/null'; \
+    } >> /etc/aliases; \
     \
     { \
         #https://askubuntu.com/a/63691/543855
         echo 'always_bcc = backup'; \
+        #https://serverfault.com/a/696298/377751
+        echo 'virtual_alias_maps = hash:/etc/postfix/virtual'; \
     } >> /etc/postfix/main.cf; \
+    \
+    { \
+        echo '@localhost.localdomain devnull@localhost.localdomain'; \
+    } > /etc/postfix/virtual; \
     \
     #http://postfix.1071664.n5.nabble.com/first-timer-using-postmap-help-please-td14908.html
     newaliases;
