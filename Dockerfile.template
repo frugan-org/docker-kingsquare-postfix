@@ -4,17 +4,18 @@ RUN set -ex; \
     #https://superuser.com/a/353526
     sed -i \
     -e 's/^\(alias_maps = \)hash/\1regexp/' \
-    -e 's/^\(alias_database = \)hash/\1regexp/' \
+    -e 's/^\(alias_database)/#\1/' \
     /etc/postfix/main.cf; \
     \
     { \
+        echo '/^postmaster@/ root'; \
         echo '/^devnull(\d*)@/ /dev/null'; \
-    } >> /etc/aliases; \
+    } > /etc/aliases; \
     \
     { \
         #https://askubuntu.com/a/63691/543855
         echo 'always_bcc = backup'; \
-    } >> /etc/postfix/main.cf;
-    #\
+    } >> /etc/postfix/main.cf; \
+    \
     #http://postfix.1071664.n5.nabble.com/first-timer-using-postmap-help-please-td14908.html
-    #newaliases;
+    newaliases;
