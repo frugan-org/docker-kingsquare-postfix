@@ -1,10 +1,11 @@
 FROM kingsquare/postfix:latest
 
 RUN set -ex; \
+    #https://serverfault.com/a/644393/377751
     #https://superuser.com/a/353526
     sed -i \
     -e 's/^\(alias_maps = \)hash/\1regexp/' \
-    -e 's/^\(alias_database)/#\1/' \
+    -e 's/^\(alias_database\)/#\1/' \
     /etc/postfix/main.cf; \
     \
     { \

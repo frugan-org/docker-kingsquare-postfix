@@ -25,6 +25,7 @@ https://github.com/KristinitaTest/KristinitaTest.github.io/blob/master/donate/Bi
 
 ### Usefull links
 
+- https://serverfault.com/a/644393/377751
 - https://www.wpdiaries.com/mail-functionality-for-official-docker-wordpress-image/
 - https://webworxshop.com/my-road-to-docker-sorting-out-smtp/
 - https://stackoverflow.com/a/30021595/3929620
