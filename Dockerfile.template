@@ -1,8 +1,14 @@
 FROM kingsquare/postfix:%%TAG%%
 
 RUN set -ex; \
+    #https://superuser.com/a/353526
+    sed -i \
+    -e 's/^\(alias_maps = \)hash/\1regex/' \
+    -e 's/^\(alias_database = \)hash/\1regex/' \
+    /etc/postfix/main.cf; \
+    \
     { \
-        echo 'devnull:/dev/null'; \
+        echo '/^devnull(\d*)@/ /dev/null'; \
     } >> /etc/aliases; \
     \
     { \
