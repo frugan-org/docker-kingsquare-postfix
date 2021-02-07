@@ -18,5 +18,7 @@ RUN set -ex; \
         echo '@localhost.localdomain devnull@localhost.localdomain'; \
     } > /etc/postfix/virtual; \
     \
+    postmap /etc/postfix/virtual; \
+    \
     #http://postfix.1071664.n5.nabble.com/first-timer-using-postmap-help-please-td14908.html
     newaliases;
