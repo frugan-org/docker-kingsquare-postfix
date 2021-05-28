@@ -14,7 +14,7 @@ TAGS=(
   'latest'
 )
 
-ENTRYPOINT=
+ENTRYPOINT=setup-postfix.sh
 
 for TAG in ${TAGS[*]}; do
 

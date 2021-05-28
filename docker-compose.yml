@@ -17,6 +17,11 @@ services:
       - no-new-privileges:true
     networks:
       - default
+    volumes:
+      - ${PWD}/certs:/etc/postfix/certs
+      - ${PWD}/dkim:/etc/opendkim/domainkeys
     environment:
       maildomain: ${POSTFIX_MAILDOMAIN}
       smtp_user: ${POSTFIX_SMTP_USER}
+      dkimselector: ${POSTFIX_DKIMSELECTOR}
+      DOMAINS: ${DOMAINS}
