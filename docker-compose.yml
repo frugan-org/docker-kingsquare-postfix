@@ -24,4 +24,4 @@ services:
       maildomain: ${POSTFIX_MAILDOMAIN}
       smtp_user: ${POSTFIX_SMTP_USER}
       dkimselector: ${POSTFIX_DKIMSELECTOR}
-      DOMAINS: ${DOMAINS}
+      DOMAINS: ${POSTFIX_DOMAINS}
