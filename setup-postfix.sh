@@ -31,7 +31,10 @@ EOF
   fi
 fi
 
+
 #https://serverfault.com/a/861701/377751
+#https://serverfault.com/a/892672/377751
+#https://serverfault.com/a/1048573/377751
 #https://github.com/kingsquare/docker-postfix/pull/7
 sed -i \
     -e 's/refile\:\(\/etc\/opendkim\/KeyTable\)/\1/' \
