@@ -1,6 +1,6 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-## :point_right::point_right::point_right: REPO MOVED HERE: https://gitlab.com/frugan/docker-kingsquare-postfix
+## :point_right::point_right: REPO MOVED HERE: https://gitlab.com/frugan/docker-kingsquare-postfix
 
 # Docker Kingsquare Postfix
 
