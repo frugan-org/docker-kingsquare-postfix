@@ -14,8 +14,6 @@ TAGS=(
   'latest'
 )
 
-ENTRYPOINT=setup-postfix.sh
-
 for TAG in ${TAGS[*]}; do
 
   if [ -d "$TAG" ]; then
@@ -25,8 +23,6 @@ for TAG in ${TAGS[*]}; do
   mkdir $TAG
   deploy Dockerfile.template > $TAG/Dockerfile
 
-  if [ -f "$ENTRYPOINT" ]; then
-    cp $ENTRYPOINT $TAG
-  fi
+  cp setup-postfix.sh $TAG
 
 done

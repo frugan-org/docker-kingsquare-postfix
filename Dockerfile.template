@@ -1,6 +1,11 @@
 FROM kingsquare/postfix:%%TAG%%
 
 RUN set -ex; \
+    #https://github.com/docker-mailserver/docker-mailserver/blob/master/Dockerfile#L167
+    DEBIAN_FRONTEND=noninteractive apt -yq update; \
+    DEBIAN_FRONTEND=noninteractive apt -yq install \
+        postsrsd \
+    ; \
     #https://serverfault.com/a/644393/377751
     #https://superuser.com/a/353526
     { \
@@ -22,6 +27,7 @@ RUN set -ex; \
     \
     #http://postfix.1071664.n5.nabble.com/first-timer-using-postmap-help-please-td14908.html
     newaliases;
+
 
 RUN mkdir /app/opt
 COPY setup-postfix.sh /app/opt

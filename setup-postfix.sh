@@ -39,3 +39,26 @@ fi
 sed -i \
     -e 's/refile\:\(\/etc\/opendkim\/KeyTable\)/\1/' \
     /etc/opendkim.conf;
+
+
+#https://github.com/docker-mailserver/docker-mailserver/blob/65622c56e934459beef7fba045f23ef897a6dcda/target/scripts/postsrsd-wrapper.sh
+echo "Adding SRS_DOMAIN to /etc/default/postsrsd"
+sed -i -e "s/^\(SRS_DOMAIN=\).*/\1${SRS_DOMAIN}/g" /etc/default/postsrsd
+
+if [[ -n ${SRS_EXCLUDE_DOMAINS} ]]; then
+  echo "Adding SRS_EXCLUDE_DOMAINS to /etc/default/postsrsd"
+  sed -i -e "s/^#\?SRS_EXCLUDE_DOMAINS=.*$/SRS_EXCLUDE_DOMAINS=${SRS_EXCLUDE_DOMAINS}/g" /etc/default/postsrsd
+fi
+
+echo "Adding SRS configurations to /etc/postfix/main.cf"
+postconf -e "sender_canonical_maps = tcp:localhost:10001"
+postconf -e "sender_canonical_classes = ${SRS_SENDER_CLASSES}"
+postconf -e "recipient_canonical_maps = tcp:localhost:10002"
+postconf -e "recipient_canonical_classes = envelope_recipient,header_recipient"
+
+#https://github.com/docker-mailserver/docker-mailserver/blob/bab0277723f46c00016eabd48ec3a932b1244bf5/target/supervisor/conf.d/supervisor-app.conf#L127
+cat >>/etc/supervisor/conf.d/supervisord.conf <<EOF
+
+[program:postsrsd]
+command=/etc/init.d/postsrsd start
+EOF
