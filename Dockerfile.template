@@ -1,9 +1,11 @@
 FROM kingsquare/postfix:%%TAG%%
 
 RUN set -ex; \
-    #https://github.com/docker-mailserver/docker-mailserver/blob/master/Dockerfile#L167
-    DEBIAN_FRONTEND=noninteractive apt -yq update; \
-    DEBIAN_FRONTEND=noninteractive apt -yq install \
+    #https://github.com/docker-mailserver/docker-mailserver/blob/5966623b1a6f76bcd52f5ccc4d0e1c8eb045ba35/Dockerfile#L43
+    #https://github.com/hackafake/hackafake-backend/issues/32#issuecomment-735602580
+    #https://exerror.com/repository-http-deb-debian-org-debian-buster-updates-inrelease-changed-its-suite-value-from-stable-updates-to-oldstable-updates/
+    DEBIAN_FRONTEND=noninteractive apt-get -yq --allow-releaseinfo-change update; \
+    DEBIAN_FRONTEND=noninteractive apt-get -yq install \
         postsrsd \
     ; \
     #https://serverfault.com/a/644393/377751
