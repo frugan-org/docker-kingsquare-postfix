@@ -62,3 +62,12 @@ cat >>/etc/supervisor/conf.d/supervisord.conf <<EOF
 [program:postsrsd]
 command=/etc/init.d/postsrsd start
 EOF
+
+
+#https://github.com/roehling/postsrsd/issues/67
+#https://serverfault.com/questions/843510/execute-script-program-for-outbound-mail
+#https://stackoverflow.com/a/22877206/3929620
+if [[ -f /etc/postfix/smtp_header_checks.pcre ]]; then
+  echo "Adding smtp_header_checks configurations to /etc/postfix/main.cf"
+  postconf -e "smtp_header_checks = pcre:/etc/postfix/smtp_header_checks.pcre"
+fi
