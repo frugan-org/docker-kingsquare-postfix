@@ -6,8 +6,8 @@
 
 
 #https://rimuhosting.com/knowledgebase/linux/mail/Postfix%20mbox%20to%20Maildir%20conversion
-echo "Adding home_mailbox configurations to /etc/postfix/main.cf"
-postconf -e "home_mailbox = Maildir/"
+#echo "Adding home_mailbox configurations to /etc/postfix/main.cf"
+#postconf -e "home_mailbox = Maildir/"
 
 
 echo "Configuring always_bcc"
@@ -32,6 +32,29 @@ postmap /etc/postfix/virtual;
 
 #http://postfix.1071664.n5.nabble.com/first-timer-using-postmap-help-please-td14908.html
 newaliases;
+
+
+#https://github.com/roehling/postsrsd/issues/67
+#https://github.com/roehling/postsrsd/issues/39
+#https://stackoverflow.com/a/22877206/3929620
+#https://stackoverflow.com/a/13745840/3929620
+#https://serverfault.com/q/843510/377751
+#https://serverfault.com/a/674984/377751
+#https://stackoverflow.com/a/68819424/3929620
+#https://serverfault.com/a/834729/377751
+#https://stackoverflow.com/a/39381717/3929620
+#https://stackoverflow.com/a/63024268/3929620
+#https://contrid.net/server/mail-servers/postfix-catch-all-pipe-to-script/
+#https://www.thejml.info/devops/passing-email-to-scripts-with-postfix
+if [[ -f /etc/postfix/conf/header_checks.pcre ]]; then
+  echo "Adding header_checks configurations to /etc/postfix/main.cf"
+  postconf -e "header_checks = pcre:/etc/postfix/conf/header_checks.pcre"
+fi
+
+if [[ -f /etc/postfix/conf/smtp_header_checks.pcre ]]; then
+  echo "Adding smtp_header_checks configurations to /etc/postfix/main.cf"
+  postconf -e "smtp_header_checks = pcre:/etc/postfix/conf/smtp_header_checks.pcre"
+fi
 
 
 if [ -n "${DOMAINS}" ]; then
@@ -92,26 +115,3 @@ cat >>/etc/supervisor/conf.d/supervisord.conf <<EOF
 [program:postsrsd]
 command=/etc/init.d/postsrsd start
 EOF
-
-
-#https://github.com/roehling/postsrsd/issues/67
-#https://github.com/roehling/postsrsd/issues/39
-#https://stackoverflow.com/a/22877206/3929620
-#https://stackoverflow.com/a/13745840/3929620
-#https://serverfault.com/q/843510/377751
-#https://serverfault.com/a/674984/377751
-#https://stackoverflow.com/a/68819424/3929620
-#https://serverfault.com/a/834729/377751
-#https://stackoverflow.com/a/39381717/3929620
-#https://stackoverflow.com/a/63024268/3929620
-#https://contrid.net/server/mail-servers/postfix-catch-all-pipe-to-script/
-#https://www.thejml.info/devops/passing-email-to-scripts-with-postfix
-if [[ -f /etc/postfix/conf/header_checks.pcre ]]; then
-  echo "Adding header_checks configurations to /etc/postfix/main.cf"
-  postconf -e "header_checks = pcre:/etc/postfix/conf/header_checks.pcre"
-fi
-
-if [[ -f /etc/postfix/conf/smtp_header_checks.pcre ]]; then
-  echo "Adding smtp_header_checks configurations to /etc/postfix/main.cf"
-  postconf -e "smtp_header_checks = pcre:/etc/postfix/conf/smtp_header_checks.pcre"
-fi
