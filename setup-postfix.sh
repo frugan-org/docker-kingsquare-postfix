@@ -4,6 +4,36 @@
 #https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html
 #https://explainshell.com/
 
+
+#https://rimuhosting.com/knowledgebase/linux/mail/Postfix%20mbox%20to%20Maildir%20conversion
+echo "Adding home_mailbox configurations to /etc/postfix/main.cf"
+postconf -e "home_mailbox = Maildir/"
+
+
+echo "Configuring always_bcc"
+#https://serverfault.com/a/644393/377751
+#https://superuser.com/a/353526
+{
+  echo 'devnull: /dev/null';
+} >> /etc/aliases;
+
+{
+  #https://askubuntu.com/a/63691/543855
+  echo 'always_bcc = backup';
+  #https://serverfault.com/a/696298/377751
+  echo 'virtual_alias_maps = hash:/etc/postfix/virtual';
+} >> /etc/postfix/main.cf;
+
+{
+  echo '@localhost.localdomain devnull@localhost.localdomain';
+} > /etc/postfix/virtual;
+
+postmap /etc/postfix/virtual;
+
+#http://postfix.1071664.n5.nabble.com/first-timer-using-postmap-help-please-td14908.html
+newaliases;
+
+
 if [ -n "${DOMAINS}" ]; then
   DKIM_FILE="$(find /etc/opendkim/domainkeys -iname *.private)"
 
@@ -65,13 +95,22 @@ EOF
 
 
 #https://github.com/roehling/postsrsd/issues/67
+#https://github.com/roehling/postsrsd/issues/39
 #https://stackoverflow.com/a/22877206/3929620
 #https://stackoverflow.com/a/13745840/3929620
 #https://serverfault.com/q/843510/377751
 #https://serverfault.com/a/674984/377751
 #https://stackoverflow.com/a/68819424/3929620
+#https://serverfault.com/a/834729/377751
+#https://stackoverflow.com/a/39381717/3929620
+#https://stackoverflow.com/a/63024268/3929620
 #https://contrid.net/server/mail-servers/postfix-catch-all-pipe-to-script/
 #https://www.thejml.info/devops/passing-email-to-scripts-with-postfix
+if [[ -f /etc/postfix/header_checks.pcre ]]; then
+  echo "Adding header_checks configurations to /etc/postfix/main.cf"
+  postconf -e "header_checks = pcre:/etc/postfix/header_checks.pcre"
+fi
+
 if [[ -f /etc/postfix/smtp_header_checks.pcre ]]; then
   echo "Adding smtp_header_checks configurations to /etc/postfix/main.cf"
   postconf -e "smtp_header_checks = pcre:/etc/postfix/smtp_header_checks.pcre"

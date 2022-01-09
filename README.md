@@ -2,7 +2,9 @@
 
 # Docker Kingsquare Postfix
 
-Customization of the [Kingsquare Postfix Docker image](https://github.com/kingsquare/docker-postfix).
+Customization of the [Kingsquare Postfix Docker image](https://github.com/kingsquare/docker-postfix) with integration of:
+
+- [PostSRSd](https://github.com/roehling/postsrsd)
 
 ### Changelog
 
@@ -37,5 +39,5 @@ https://github.com/KristinitaTest/KristinitaTest.github.io/blob/master/donate/Bi
 
 ### License
 
-(ɔ) Copyleft 2021 [Frugan](https://about.me/frugan)
+(ɔ) Copyleft 2022 [Frugan](https://about.me/frugan)
 [GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/), see [COPYING](COPYING) file.

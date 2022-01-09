@@ -7,28 +7,7 @@ RUN set -ex; \
     DEBIAN_FRONTEND=noninteractive apt-get -yq --allow-releaseinfo-change update; \
     DEBIAN_FRONTEND=noninteractive apt-get -yq install \
         postsrsd \
-    ; \
-    #https://serverfault.com/a/644393/377751
-    #https://superuser.com/a/353526
-    { \
-        echo 'devnull: /dev/null'; \
-    } >> /etc/aliases; \
-    \
-    { \
-        #https://askubuntu.com/a/63691/543855
-        echo 'always_bcc = backup'; \
-        #https://serverfault.com/a/696298/377751
-        echo 'virtual_alias_maps = hash:/etc/postfix/virtual'; \
-    } >> /etc/postfix/main.cf; \
-    \
-    { \
-        echo '@localhost.localdomain devnull@localhost.localdomain'; \
-    } > /etc/postfix/virtual; \
-    \
-    postmap /etc/postfix/virtual; \
-    \
-    #http://postfix.1071664.n5.nabble.com/first-timer-using-postmap-help-please-td14908.html
-    newaliases;
+    ;
 
 
 RUN mkdir /app/opt
