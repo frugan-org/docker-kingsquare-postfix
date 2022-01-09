@@ -46,6 +46,7 @@ newaliases;
 #https://stackoverflow.com/a/63024268/3929620
 #https://contrid.net/server/mail-servers/postfix-catch-all-pipe-to-script/
 #https://www.thejml.info/devops/passing-email-to-scripts-with-postfix
+#https://thinlight.org/2016/07/30/postfix-replace-sender-address-and-add-reply-to-header/
 if [[ -f /etc/postfix/conf/header_checks.pcre ]]; then
   echo "Adding header_checks configurations to /etc/postfix/main.cf"
   postconf -e "header_checks = pcre:/etc/postfix/conf/header_checks.pcre"
