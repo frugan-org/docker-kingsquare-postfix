@@ -106,12 +106,12 @@ EOF
 #https://stackoverflow.com/a/63024268/3929620
 #https://contrid.net/server/mail-servers/postfix-catch-all-pipe-to-script/
 #https://www.thejml.info/devops/passing-email-to-scripts-with-postfix
-if [[ -f /etc/postfix/header_checks.pcre ]]; then
+if [[ -f /etc/postfix/conf/header_checks.pcre ]]; then
   echo "Adding header_checks configurations to /etc/postfix/main.cf"
-  postconf -e "header_checks = pcre:/etc/postfix/header_checks.pcre"
+  postconf -e "header_checks = pcre:/etc/postfix/conf/header_checks.pcre"
 fi
 
-if [[ -f /etc/postfix/smtp_header_checks.pcre ]]; then
+if [[ -f /etc/postfix/conf/smtp_header_checks.pcre ]]; then
   echo "Adding smtp_header_checks configurations to /etc/postfix/main.cf"
-  postconf -e "smtp_header_checks = pcre:/etc/postfix/smtp_header_checks.pcre"
+  postconf -e "smtp_header_checks = pcre:/etc/postfix/conf/smtp_header_checks.pcre"
 fi
