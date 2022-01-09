@@ -18,6 +18,7 @@ services:
     networks:
       - default
     volumes:
+      - ${PWD}/conf:/etc/postfix/conf
       - ${PWD}/certs:/etc/postfix/certs
       - ${PWD}/dkim:/etc/opendkim/domainkeys
     environment:
